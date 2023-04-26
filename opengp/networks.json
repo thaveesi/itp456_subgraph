@@ -1,0 +1,11 @@
+{
+  "goerli": {
+    "GovernanceToken": {
+      "address": "0x0ee818d9ADe61f34b854E7110f7afe7fb0182d9C",
+      "startBlock": 8893404
+    },
+    "GovernanceTokenFactory": {
+      "address": "0x8E2eCbdab97F365149DbCc8Cc98dD04578ccb4A4"
+    }
+  }
+}

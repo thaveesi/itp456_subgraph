@@ -1,0 +1,56 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: GovernanceToken
+    network: goerli
+    source:
+      address: "0x0ee818d9ADe61f34b854E7110f7afe7fb0182d9C"
+      abi: GovernanceToken
+      startBlock: 8893404
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - GovernanceVote
+        - NewGovernanceProposal
+        - Transfer
+        - voteEndingtime
+      abis:
+        - name: GovernanceToken
+          file: ./abis/GovernanceToken.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,uint256)
+          handler: handleApproval
+        - event: GovernanceVote(indexed address,indexed uint256,uint256,uint256)
+          handler: handleGovernanceVote
+        - event: NewGovernanceProposal(indexed uint256,string)
+          handler: handleNewGovernanceProposal
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: voteEndingtime(uint256)
+          handler: handlevoteEndingtime
+      file: ./src/governance-token.ts
+  - kind: ethereum
+    name: GovernanceTokenFactory
+    network: goerli
+    source:
+      address: "0x8E2eCbdab97F365149DbCc8Cc98dD04578ccb4A4"
+      abi: GovernanceTokenFactory
+      startBlock: 8890985
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - TokenCreated
+      abis:
+        - name: GovernanceTokenFactory
+          file: ./abis/GovernanceTokenFactory.json
+      eventHandlers:
+        - event: TokenCreated(address,address)
+          handler: handleTokenCreated
+      file: ./src/governance-token-factory.ts
